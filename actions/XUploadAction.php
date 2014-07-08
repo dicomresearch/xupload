@@ -263,19 +263,19 @@ class XUploadAction extends CAction {
                         array(
                             'files' => array(
                                 array(
-                                    "name"          => $model->{$this->displayNameAttribute},
-                                    "type"          => $model->{$this->mimeTypeAttribute},
-                                    "size"          => $model->{$this->sizeAttribute},
-                                    "url"           => $this->getFileUrl($model->{$this->fileNameAttribute}),
-                                    "thumbnail_url" => $model->getThumbnailUrl($this->getPublicPath()),
-                                    "delete_url"    => $this->getController()->createUrl(
+                                    "name"         => $model->{$this->displayNameAttribute},
+                                    "type"         => $model->{$this->mimeTypeAttribute},
+                                    "size"         => $model->{$this->sizeAttribute},
+                                    "url"          => $this->getFileUrl($model->{$this->fileNameAttribute}),
+                                    "thumbnailUrl" => $model->getThumbnailUrl($this->getPublicPath()),
+                                    "deleteUrl"    => $this->getController()->createUrl(
                                             $this->getId(),
                                             array(
                                                 "_method" => "delete",
                                                 "file"    => $model->{$this->fileNameAttribute},
                                             )
                                         ),
-                                    "delete_type"   => "POST"
+                                    "deleteType"   => "POST"
                                 )
                             )
                         )
