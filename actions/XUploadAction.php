@@ -146,6 +146,8 @@ class XUploadAction extends CAction {
      */
     private $_formModel;
 
+
+
     /**
      * Initialize the propeties of pthis action, if they are not set.
      *
@@ -257,18 +259,27 @@ class XUploadAction extends CAction {
 
                 $returnValue = $this->beforeReturn();
                 if ($returnValue === true) {
-                    echo json_encode(array(array(
-                        "name" => $model->{$this->displayNameAttribute},
-                        "type" => $model->{$this->mimeTypeAttribute},
-                        "size" => $model->{$this->sizeAttribute},
-                        "url" => $this->getFileUrl($model->{$this->fileNameAttribute}),
-                        "thumbnail_url" => $model->getThumbnailUrl($this->getPublicPath()),
-                        "delete_url" => $this->getController()->createUrl($this->getId(), array(
-                            "_method" => "delete",
-                            "file" => $model->{$this->fileNameAttribute},
-                        )),
-                        "delete_type" => "POST"
-                    )));
+                    echo json_encode(
+                        array(
+                            'files' => array(
+                                array(
+                                    "name"          => $model->{$this->displayNameAttribute},
+                                    "type"          => $model->{$this->mimeTypeAttribute},
+                                    "size"          => $model->{$this->sizeAttribute},
+                                    "url"           => $this->getFileUrl($model->{$this->fileNameAttribute}),
+                                    "thumbnail_url" => $model->getThumbnailUrl($this->getPublicPath()),
+                                    "delete_url"    => $this->getController()->createUrl(
+                                            $this->getId(),
+                                            array(
+                                                "_method" => "delete",
+                                                "file"    => $model->{$this->fileNameAttribute},
+                                            )
+                                        ),
+                                    "delete_type"   => "POST"
+                                )
+                            )
+                        )
+                    );
                 } else {
                     echo json_encode(array(array("error" => $returnValue,)));
                     Yii::log("XUploadAction: " . $returnValue, CLogger::LEVEL_ERROR, "xupload.actions.XUploadAction");

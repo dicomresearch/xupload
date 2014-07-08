@@ -148,22 +148,25 @@ class XUpload extends CJuiInputWidget {
         $baseUrl = Yii::app() -> assetManager -> publish($assets);
         if (is_dir($assets)) {
             if($this->registerCSS){
-                Yii::app() -> clientScript -> registerCssFile($baseUrl . '/css/jquery.fileupload-ui.css');
+                Yii::app() -> clientScript -> registerCssFile($baseUrl . '/css/jquery.fileupload.css');
             }
             //The Templates plugin is included to render the upload/download listings
             Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/tmpl.min.js', CClientScript::POS_END);
             // The basic File Upload plugin
-            Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/jquery.fileupload.js', CClientScript::POS_END);
             if($this->previewImages || $this->imageProcessing){
                 Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/load-image.min.js', CClientScript::POS_END);
                 Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/canvas-to-blob.min.js', CClientScript::POS_END);
+                Yii::app() -> clientScript -> registerScriptFile('http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js', CClientScript::POS_END);
             }
             //The Iframe Transport is required for browsers without support for XHR file uploads
             Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/jquery.iframe-transport.js', CClientScript::POS_END);
+            Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/jquery.fileupload.js', CClientScript::POS_END);
+            Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/jquery.fileupload-process.js', CClientScript::POS_END);
             // The File Upload image processing plugin
             if($this->imageProcessing){
-                Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/jquery.fileupload-ip.js', CClientScript::POS_END);
+                Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/jquery.fileupload-image.js', CClientScript::POS_END);
             }
+            Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/jquery.fileupload-validate.js', CClientScript::POS_END);
             //The File Upload user interface plugin
             Yii::app() -> clientScript -> registerScriptFile($baseUrl . '/js/jquery.fileupload-ui.js', CClientScript::POS_END);
 
