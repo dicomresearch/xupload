@@ -38,10 +38,10 @@
     </div>
     <!-- The global progress state -->
     <div class="col-lg-6 col-md-6 fileupload-progress fade">
-        <div class="row">
+        <div class="row-fluid">
             <!-- The global progress bar -->
-            <div class="col-lg-6 col-md-6 progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar progress-bar-success" style="width:0;"></div>
+            <div class="col-lg-6 col-md-6 progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="padding-left: 0;">
+                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
             </div>
             <!-- The extended global progress state -->
             <div class="col-lg-6 col-md-6 progress-extended">&nbsp;</div>
