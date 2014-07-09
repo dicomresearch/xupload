@@ -1,3 +1,4 @@
+<?php /** @var $this XUpload */ ?>
 <!-- The template to display files available for download -->
 <script id="template-download" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
@@ -21,6 +22,7 @@
                 <div><span class="label label-danger">Error</span> {%=file.error%}</div>
             {% } %}
         </td>
+        <td class="createTime"><span>{%=file.createTime%}</span></td>
         <td>
             <span class="size">{%=o.formatFileSize(file.size)%}</span>
         </td>
@@ -28,13 +30,13 @@
             {% if (file.deleteUrl) { %}
                 <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                     <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
+                    <?= $this->t('Delete') ?>
                 </button>
-                <input type="checkbox" name="delete" value="1" class="toggle">
+                <!-- <?php if ($this->multiple) : ?><input type="checkbox" name="delete" value="1" class="toggle"><?php endif ?> -->
             {% } else { %}
                 <button class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
+                    <span><?= $this->t('Cancel') ?></span>
                 </button>
             {% } %}
         </td>

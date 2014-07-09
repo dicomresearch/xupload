@@ -264,6 +264,7 @@ class XUploadAction extends CAction {
                             'files' => array(
                                 array(
                                     "name"         => $model->{$this->displayNameAttribute},
+                                    "createTime"  => date('Y-m-d H:i:s'),
                                     "type"         => $model->{$this->mimeTypeAttribute},
                                     "size"         => $model->{$this->sizeAttribute},
                                     "url"          => $this->getFileUrl($model->{$this->fileNameAttribute}),

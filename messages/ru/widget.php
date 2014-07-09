@@ -7,9 +7,15 @@ return array(
     'Max number of files exceeded' => 'Превышено максимальное количество файлов',
     'Uploaded bytes exceed file size' => 'Загружено больше байт, чем размер файла',
     'Empty file upload result' => 'Пустой файл',
-    "Error" => 'Ошибка',
-    "Start" => 'Загрузить',
-    "Cancel" => 'Отменить',
-    "Delete" => 'Удалить'
-
+    'Error' => 'Ошибка',
+    'Start' => 'Загрузить',
+    'Start upload' => 'Начать загрузку',
+    'Cancel' => 'Отменить',
+    'Cancel upload' => 'Отменить загрузку',
+    'Delete' => 'Удалить',
+    'Processing...' => 'Обработка...',
+    'Thumbnail' => 'Миниатюра',
+    'File name' => 'Название файла',
+    'Upload date' => 'Дата загрузки',
+    'Size' => 'Размер',
 );

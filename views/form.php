@@ -1,8 +1,9 @@
+<?php /** @var $this XUpload */ ?>
 <!-- The file upload form used as target for the file upload widget -->
 <?php if ($this->showForm) echo CHtml::beginForm($this->url, 'post', $this->htmlOptions); ?>
 <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 <div class="row fileupload-buttonbar">
-    <div class="col-lg-7 col-md-7">
+    <div class="col-lg-6 col-md-6">
         <!-- The fileinput-button span is used to style the file input field as button -->
         <span class="btn btn-success fileinput-button">
             <i class="glyphicon glyphicon-plus"></i>
@@ -16,34 +17,48 @@
             ?>
         </span>
         <?php if ($this->multiple): ?>
-        <button type="submit" class="btn btn-primary start">
+            <?php if (!$this->autoUpload) :?>
+            <button type="submit" class="btn btn-primary start">
             <i class="glyphicon glyphicon-upload"></i>
-            <span>Start upload</span>
+            <span><?= $this->t('Start upload') ?></span>
+            <?php endif;?>
         </button>
         <button type="reset" class="btn btn-warning cancel">
             <i class="glyphicon glyphicon-ban-circle"></i>
-            <span>Cancel upload</span>
+            <span><?= $this->t('Cancel upload') ?></span>
         </button>
-        <button type="button" class="btn btn-danger delete">
+        <!--<button type="button" class="btn btn-danger delete">
             <i class="glyphicon glyphicon-trash"></i>
-            <span>Delete</span>
+            <span><?= $this->t('Delete') ?></span>
         </button>
-        <input type="checkbox" class="toggle">
+        <input type="checkbox" class="toggle">-->
         <?php endif; ?>
         <!-- The global file processing state -->
         <span class="fileupload-process"></span>
     </div>
     <!-- The global progress state -->
-    <div class="col-lg-5 col-md-5 fileupload-progress fade">
-        <!-- The global progress bar -->
-        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+    <div class="col-lg-6 col-md-6 fileupload-progress fade">
+        <div class="row">
+            <!-- The global progress bar -->
+            <div class="col-lg-6 col-md-6 progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-success" style="width:0;"></div>
+            </div>
+            <!-- The extended global progress state -->
+            <div class="col-lg-6 col-md-6 progress-extended">&nbsp;</div>
         </div>
-        <!-- The extended global progress state -->
-        <div class="progress-extended">&nbsp;</div>
     </div>
 </div>
 <!-- The table listing the files available for upload/download -->
-<table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
-</form>
+<table role="presentation" class="table table-striped">
+    <thead>
+        <tr>
+            <th><?= $this->t('Thumbnail') ?></th>
+            <th><?= $this->t('File name') ?></th>
+            <th><?= $this->t('Upload date') ?></th>
+            <th><?= $this->t('Size') ?></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="files"></tbody>
+</table>
 <?php if ($this->showForm) echo CHtml::endForm(); ?>

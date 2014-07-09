@@ -24,7 +24,7 @@ class XUpload extends CJuiInputWidget {
      * set to true to use multiple file upload
      * @var boolean
      */
-    public $multiple = false;
+    public $multiple = true;
 
     /**
      * The upload template id to display files available for upload
@@ -58,7 +58,7 @@ class XUpload extends CJuiInputWidget {
      * set to true to auto Uploading Files
      * @var boolean
      */
-    public $autoUpload = false;
+    public $autoUpload = true;
 
     /**
      * @var string name of the form view to be rendered
@@ -79,6 +79,8 @@ class XUpload extends CJuiInputWidget {
      * @var bool whether form tag should be used at widget
      */
     public $showForm = true;
+
+    public $options = ['prependFiles' => true];
 
     /**
      * Publishes the required assets
@@ -200,9 +202,8 @@ class XUpload extends CJuiInputWidget {
         }
     }
 
-    protected function t($message, $params=array ( ))
+    protected function t($message, $params = array())
     {
         return Yii::t('xupload.widget', $message, $params);
     }
-
 }
