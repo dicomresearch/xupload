@@ -11,6 +11,8 @@ Yii::import('xupload.actions.XUploadAction');
  */
 class XUploadChunkAction extends XUploadAction
 {
+    /** @var string for CEvents... */
+    public $currentFilePath;
     protected $error_messages = [
         1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
         2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
@@ -961,6 +963,21 @@ class XUploadChunkAction extends XUploadAction
         $this->destroy_image_object($file_path);
     }*/
 
+    public function onFirstChunkUploaded(CEvent $event)
+    {
+        $this->raiseEvent('onFirstChunkUploaded', $event);
+    }
+
+    public function onAllChunkUploaded(CEvent $event)
+    {
+        $this->raiseEvent('onAllChunkUploaded', $event);
+    }
+
+    public function onFileUploaded(CEvent $event)
+    {
+        $this->raiseEvent('onFileUploaded', $event);
+    }
+
     protected function handleBatchUploading($uploadedFile, $name, $size, $type, $error, $index = null, $contentRange = null)
     {
         $file = new \stdClass();
@@ -974,7 +991,7 @@ class XUploadChunkAction extends XUploadAction
             if (!is_dir($upload_dir)) {
                 mkdir($upload_dir, $this->options['mkdir_mode'], true);
             }
-            $file_path = $this->getUploadPath($file->name);
+            $this->currentFilePath = $file_path = $this->getUploadPath($file->name);
             $append_file = $contentRange && is_file($file_path) && $file->size > $this->getFileSize($file_path);
             if ($uploadedFile && is_uploaded_file($uploadedFile)) {
                 // multipart/formdata uploads (POST method uploads)
@@ -982,6 +999,8 @@ class XUploadChunkAction extends XUploadAction
                     file_put_contents($file_path, fopen($uploadedFile, 'r'), FILE_APPEND);
                 } else {
                     move_uploaded_file($uploadedFile, $file_path);
+                    $event = new CModelEvent($this);
+                    $contentRange ? $this->onFirstChunkUploaded($event) : $this->onFileUploaded($event);
                 }
             } else {
                 // Non-multipart uploads (PUT method support)
@@ -990,6 +1009,9 @@ class XUploadChunkAction extends XUploadAction
             $file_size = $this->getFileSize($file_path, $append_file);
             if ($file_size === $file->size) {
                 $file->url = $this->getDownloadUrl($file->name);
+                if ($contentRange) {
+                    $this->onAllChunkUploaded(new CModelEvent($this));
+                }
                 /*if ($this->is_valid_image_file($file_path)) {
                     $this->handle_image_file($file_path, $file);
                 }*/
