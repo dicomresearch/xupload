@@ -305,7 +305,7 @@ class XUploadChunkAction extends XUploadAction
         return null;
     }
 
-    protected function getFileObjects($iteration_method = 'get_file_object')
+    protected function getFileObjects($iteration_method = 'getFileObject')
     {
         $upload_dir = $this->getUploadPath();
         if (!is_dir($upload_dir)) {
@@ -316,7 +316,7 @@ class XUploadChunkAction extends XUploadAction
 
     protected function countFileObjects()
     {
-        return count($this->getFileObjects('is_valid_file_object'));
+        return count($this->getFileObjects('isValidFileObject'));
     }
 
     protected function getErrorMessage($error)
