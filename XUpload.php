@@ -82,6 +82,9 @@ class XUpload extends CJuiInputWidget {
 
     public $options = ['prependFiles' => true];
 
+    public $checkAddOperationName;
+    public $checkRemoveOperationName;
+
     /**
      * Publishes the required assets
      */

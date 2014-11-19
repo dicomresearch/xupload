@@ -5,6 +5,7 @@
 <div class="row fileupload-buttonbar">
     <div class="col-lg-6 col-md-6">
         <!-- The fileinput-button span is used to style the file input field as button -->
+        <?php if (!$this->checkAddOperationName || Yii::app()->getUser()->checkAccess($this->checkAddOperationName)): ?>
         <span class="btn btn-success fileinput-button">
             <i class="glyphicon glyphicon-plus"></i>
             <span><?= $this->t('1#Add files|0#Choose file', $this->multiple); ?></span>
@@ -16,6 +17,7 @@
             endif;
             ?>
         </span>
+        <?php endif; ?>
         <?php if ($this->multiple): ?>
             <?php if (!$this->autoUpload) :?>
             <button type="submit" class="btn btn-primary start">
@@ -23,13 +25,19 @@
             <span><?= $this->t('Start upload') ?></span>
             <?php endif;?>
         </button>
+        <?php if (!$this->checkAddOperationName || Yii::app()->getUser()->checkAccess($this->checkAddOperationName)): ?>
         <button type="reset" class="btn btn-warning cancel">
             <i class="glyphicon glyphicon-ban-circle"></i>
             <span><?= $this->t('Cancel upload') ?></span>
         </button>
+        <?php endif ?>
         <!--<button type="button" class="btn btn-danger delete">
             <i class="glyphicon glyphicon-trash"></i>
-            <span><?= $this->t('Delete') ?></span>
+            <span>
+                <?php if (!$this->checkRemoveOperationName || Yii::app()->getUser()->checkAccess($this->checkRemoveOperationName)): ?>
+                    <?= $this->t('Delete') ?>
+                <?php endif ?>
+            </span>
         </button>
         <input type="checkbox" class="toggle">-->
         <?php endif; ?>
