@@ -167,7 +167,7 @@ class XUpload extends CJuiInputWidget {
             if ($this->previewImages || $this->imageProcessing) {
                 Yii::app()->clientScript->registerScriptFile($baseUrl . '/js/load-image.min.js', CClientScript::POS_END);
                 Yii::app()->clientScript->registerScriptFile($baseUrl . '/js/canvas-to-blob.min.js', CClientScript::POS_END);
-                Yii::app()->clientScript->registerScriptFile('http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js', CClientScript::POS_END);
+                #Yii::app()->clientScript->registerScriptFile('http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js', CClientScript::POS_END);
             }
             //The Iframe Transport is required for browsers without support for XHR file uploads
             Yii::app()->clientScript->registerScriptFile($baseUrl . '/js/jquery.iframe-transport.js', CClientScript::POS_END);
