@@ -477,6 +477,11 @@ class XUploadChunkAction extends XUploadAction
         $this->raiseEvent('onFileUploaded', $event);
     }
 
+    public function onFileDeleted(CEvent $event)
+    {
+        $this->raiseEvent('onFileDeleted', $event);
+    }
+
     protected function handleBatchUploading($uploadedFile, $name, $size, $type, $error, $index = null, $contentRange = null)
     {
         $file = new \stdClass();
@@ -498,7 +503,7 @@ class XUploadChunkAction extends XUploadAction
                     file_put_contents($file_path, fopen($uploadedFile, 'r'), FILE_APPEND);
                 } else {
                     move_uploaded_file($uploadedFile, $file_path);
-                    $event = new CModelEvent($this);
+                    $event = new CModelEvent($this, ['file' => $file]);
                     $contentRange ? $this->onFirstChunkUploaded($event) : $this->onFileUploaded($event);
                 }
             } else {
@@ -744,8 +749,6 @@ class XUploadChunkAction extends XUploadAction
                 $content_range
             );
         }
-        #return $this->generateResponse([$this->options['param_name'] => $files], $printResponse);
-        // @todo why use $this->options if fileupload JS append response by {files} key?
         return $this->generateResponse(['files' => $files], $printResponse);
     }
 
@@ -770,7 +773,10 @@ class XUploadChunkAction extends XUploadAction
                 }
             }
             $response[$fileName] = $success;
+            $event = new CModelEvent($this, ['fileName' => $fileName]);
+            $this->onFileDeleted($event);
         }
+
         return $this->generateResponse($response, $printResponse);
     }
 }
