@@ -514,7 +514,7 @@ class XUploadChunkAction extends XUploadAction
             if ($file_size === $file->size) {
                 $file->url = $this->getDownloadUrl($file->name);
                 if ($contentRange) {
-                    $this->onAllChunkUploaded(new CModelEvent($this));
+                    $this->onAllChunkUploaded(new CModelEvent($this, ['file' => $file]));
                 }
                 /*if ($this->is_valid_image_file($file_path)) {
                     $this->handle_image_file($file_path, $file);
