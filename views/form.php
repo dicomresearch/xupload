@@ -5,36 +5,36 @@
 <div class="row fileupload-buttonbar">
     <div class="col-lg-6 col-md-6">
         <!-- The fileinput-button span is used to style the file input field as button -->
-        <?php if (!$this->checkAddOperationName || Yii::app()->getUser()->checkAccess($this->checkAddOperationName)): ?>
-        <span class="btn btn-success fileinput-button">
+        <?php if ($this->checkAddOperationName && Yii::app()->getUser()->checkAccess($this->checkAddOperationName)): ?>
+            <span class="btn btn-success fileinput-button">
             <i class="glyphicon glyphicon-plus"></i>
             <span><?= $this->t('1#Add files|0#Choose file', $this->multiple); ?></span>
-            <?php
-            if ($this->hasModel()) :
-                echo CHtml::activeFileField($this->model, $this->attribute, $htmlOptions) . "\n";
-            else :
-                echo CHtml::fileField($name, $this->value, $htmlOptions) . "\n";
-            endif;
-            ?>
+                <?php
+                if ($this->hasModel()) :
+                    echo CHtml::activeFileField($this->model, $this->attribute, $htmlOptions) . "\n";
+                else :
+                    echo CHtml::fileField($name, $this->value, $htmlOptions) . "\n";
+                endif;
+                ?>
         </span>
         <?php endif; ?>
         <?php if ($this->multiple): ?>
             <?php if (!$this->autoUpload) :?>
-            <button type="submit" class="btn btn-primary start">
-            <i class="glyphicon glyphicon-upload"></i>
-            <span><?= $this->t('Start upload') ?></span>
+                <button type="submit" class="btn btn-primary start">
+                <i class="glyphicon glyphicon-upload"></i>
+                <span><?= $this->t('Start upload') ?></span>
             <?php endif;?>
-        </button>
-        <?php if (!$this->checkAddOperationName || Yii::app()->getUser()->checkAccess($this->checkAddOperationName)): ?>
-        <button type="reset" class="btn btn-warning cancel">
-            <i class="glyphicon glyphicon-ban-circle"></i>
-            <span><?= $this->t('Cancel upload') ?></span>
-        </button>
-        <?php endif ?>
-        <!--<button type="button" class="btn btn-danger delete">
+            </button>
+            <?php if ($this->checkAddOperationName && Yii::app()->getUser()->checkAccess($this->checkAddOperationName)): ?>
+                <button type="reset" class="btn btn-warning cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span><?= $this->t('Cancel upload') ?></span>
+                </button>
+            <?php endif ?>
+            <!--<button type="button" class="btn btn-danger delete">
             <i class="glyphicon glyphicon-trash"></i>
             <span>
-                <?php if (!$this->checkRemoveOperationName || Yii::app()->getUser()->checkAccess($this->checkRemoveOperationName)): ?>
+                <?php if ($this->checkRemoveOperationName && Yii::app()->getUser()->checkAccess($this->checkRemoveOperationName)): ?>
                     <?= $this->t('Delete') ?>
                 <?php endif ?>
             </span>
@@ -59,13 +59,13 @@
 <!-- The table listing the files available for upload/download -->
 <table role="presentation" class="table table-striped">
     <thead>
-        <tr>
-            <th><?= $this->t('Thumbnail') ?></th>
-            <th><?= $this->t('File name') ?></th>
-            <th><?= $this->t('Upload date') ?></th>
-            <th><?= $this->t('Size') ?></th>
-            <th></th>
-        </tr>
+    <tr>
+        <th><?= $this->t('Thumbnail') ?></th>
+        <th><?= $this->t('File name') ?></th>
+        <th><?= $this->t('Upload date') ?></th>
+        <th><?= $this->t('Size') ?></th>
+        <th></th>
+    </tr>
     </thead>
     <tbody class="files"></tbody>
 </table>
